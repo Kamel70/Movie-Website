@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-custom con">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <!-- Replace with your SVG or logo -->
+      <img src="logo.png" alt="Logo" />
+    </a>
+    <div class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav">
+        @for (item of navItems; track $index) {
+        <li class="nav-item" (click)="setActive(item)">
+          <a
+            [ngClass]="{ 'active-link': item.active }"
+            class="nav-link"
+            href="#"
+            >{{ item.name }}
+            @if (item.icon) {
+            <i class="{{ item.icon }} arrow"></i>
+            }
+          </a>
+        </li>
+        }
+
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">TV Shows</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link suggest" href="#">
+            Suggest me
+          </a>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>

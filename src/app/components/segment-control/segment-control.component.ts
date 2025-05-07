@@ -3,21 +3,16 @@ import { NavItem } from '../../interfaces/nav-item';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-nav-bar',
+  selector: 'app-segment-control',
   imports: [NgClass],
-  templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css',
+  templateUrl: './segment-control.component.html',
+  styleUrl: './segment-control.component.css',
 })
-export class NavBarComponent {
+export class SegmentControlComponent {
   navItems: NavItem[] = [
-    { name: 'Movies', path: 'movies', active: false },
+    { name: 'All', path: 'movies', active: false },
     { name: 'TV Shows', path: 'tv-shows', active: false },
-    {
-      name: 'Suggest Me',
-      path: 'suggests',
-      icon: 'bi bi-arrow-right',
-      active: false,
-    },
+    { name: 'Movies', path: 'tv-shows', active: false },
   ];
 
   setActive(item: NavItem) {

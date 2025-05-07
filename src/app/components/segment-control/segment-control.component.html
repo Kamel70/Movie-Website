@@ -1,0 +1,11 @@
+<div class="nav-segment">
+  @for (item of navItems; track $index) {
+  <button
+    (click)="setActive(item)"
+    [ngClass]="{ 'active-segment': item.active }"
+    class="nav-button"
+  >
+    {{ item.name }}
+  </button>
+  }
+</div>

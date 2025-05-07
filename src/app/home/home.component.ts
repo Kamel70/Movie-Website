@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { SegmentControlComponent } from '../components/segment-control/segment-control.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [SegmentControlComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

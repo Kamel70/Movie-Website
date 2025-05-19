@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { IMovie, IMovieResponse } from '../../interfaces/movie';
-import { MovieService } from '../../services/movie.service';
+import { GenericHttpClientService } from '../../services/generic-http-client.service';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { EndPoints } from '../../endpoints/endpoints';
 
 @Component({
   selector: 'app-movie-list',
@@ -11,11 +12,13 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 })
 export class MovieListComponent {
   movies: IMovie[] = [];
-  service = inject(MovieService);
+  service = inject(GenericHttpClientService);
   constructor() {
-    this.service.getMovies().subscribe((data: IMovieResponse) => {
-      this.movies = data.results;
-      console.log(this.movies);
-    });
+    this.service
+      .getMovies(EndPoints.MOVIES)
+      .subscribe((data: IMovieResponse) => {
+        this.movies = data.results;
+        console.log(this.movies);
+      });
   }
 }

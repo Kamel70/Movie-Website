@@ -1,0 +1,123 @@
+@if (movie) {
+<div class="container-fluid p-0">
+  <!-- Movie Hero Section with Backdrop -->
+  <div class="movie-hero mb-4">
+    <div
+      class="backdrop-image"
+      [style.backgroundImage]="
+        movie.backdrop_path
+          ? 'url(https://image.tmdb.org/t/p/original' +
+            movie.backdrop_path +
+            ')'
+          : 'url(/assets/images/placeholder-backdrop.jpg)'
+      "
+    ></div>
+    <div class="container movie-info d-flex align-items-center">
+      <div class="row w-100">
+        <div class="col-md-3 d-flex justify-content-center">
+          <img
+            [src]="
+              movie.poster_path
+                ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+                : '/assets/images/placeholder-poster.jpg'
+            "
+            class="movie-poster img-fluid"
+            [alt]="movie.title + ' Poster'"
+          />
+        </div>
+        <div class="col-md-9 d-flex flex-column justify-content-center">
+          <h1 class="movie-title">{{ movie.title }}</h1>
+          <p class="movie-date mb-3">{{ formatDate(movie.release_date) }}</p>
+          <div class="d-flex flex-wrap mb-3">
+            <span
+              *ngFor="let genreId of movie?.genre_ids"
+              class="badge badge-custom me-2 mb-2"
+            >
+              {{ movie.genre_ids[genreId] }}
+            </span>
+          </div>
+          <p class="mb-4">{{ movie?.overview }}</p>
+          <div class="d-flex align-items-center">
+            <div *ngIf="movie?.adult">
+              <span class="badge adult-badge me-3">18+</span>
+            </div>
+            <div>
+              <i class="fas fa-language me-2"></i>
+              <span>{{ movie.original_language }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Movie Details Section -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="movie-overview">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="section-heading">About the Movie</h3>
+            <div class="rating-circle">
+              <span>{{ movie.vote_average.toFixed(1) }}</span>
+            </div>
+          </div>
+
+          <p class="mb-4">{{ movie.overview }}</p>
+
+          <div class="stats-container">
+            <div class="row text-center">
+              <div class="col-md-3 col-6">
+                <div class="stats-item">
+                  <div class="stats-value">
+                    {{ movie.popularity.toFixed(1) }}
+                  </div>
+                  <div class="stats-label">Popularity</div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stats-item">
+                  <div class="stats-value">
+                    {{ movie.vote_count.toLocaleString() }}
+                  </div>
+                  <div class="stats-label">Vote Count</div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stats-item">
+                  <div class="stats-value">
+                    <i class="fas fa-video me-2"></i>
+                    <span>{{ movie.video ? "Yes" : "No" }}</span>
+                  </div>
+                  <div class="stats-label">Video Available</div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="stats-item">
+                  <div class="stats-value">{{ movie.id }}</div>
+                  <div class="stats-label">Movie ID</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="movie-overview h-100">
+          <h3 class="section-heading">Additional Info</h3>
+          <div class="mb-4">
+            <h5><i class="fas fa-film me-2"></i> Original Title</h5>
+            <p class="ms-4">{{ movie.original_title }}</p>
+          </div>
+          <div>
+            <h5><i class="fas fa-globe me-2"></i> Original Language</h5>
+            <p class="ms-4">{{ movie.original_language }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+}

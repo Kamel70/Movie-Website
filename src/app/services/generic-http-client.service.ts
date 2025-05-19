@@ -1,0 +1,31 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { IMovie, IMovieResponse } from '../interfaces/movie';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GenericHttpClientService {
+  url = 'https://api.themoviedb.org/3/';
+  options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer api key',
+    },
+  };
+  constructor() {}
+  http = inject(HttpClient);
+  // movies: IMovie[] = [];
+  // moviesSignal = signal<IMovie[]>(this.movies);
+  getMovies(httpOptions: string) {
+    return this.http.get<IMovieResponse>(
+      `${this.url}${httpOptions}`,
+      this.options
+    );
+  }
+
+  getMovieByID(httpOptions: string) {
+    return this.http.get<IMovie>(`${this.url}${httpOptions}`, this.options);
+  }
+}

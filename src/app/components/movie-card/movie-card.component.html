@@ -13,6 +13,6 @@
     </svg>
     {{ movie().vote_average.toFixed(2) }}
   </div>
-  <img [src]="service.url + movie().poster_path" alt="Rush" />
+  <img [src]="movieURL + movie().poster_path" [alt]="movie().title" />
   <div class="movie-title">{{ movie().title }}</div>
 </div>

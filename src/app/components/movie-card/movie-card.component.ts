@@ -10,5 +10,5 @@ import { MovieService } from '../../services/movie.service';
 })
 export class MovieCardComponent {
   movie = input.required<IMovie>();
-  service = inject(MovieService);
+  movieURL = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';
 }

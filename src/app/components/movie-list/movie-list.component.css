@@ -1,5 +1,101 @@
+.container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 1.5rem;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #007bff;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pagination styling */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 15px;
+}
+
+:host ::ng-deep .ngx-pagination {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+:host ::ng-deep .ngx-pagination li {
+  margin: 0 2px;
+}
+
+:host ::ng-deep .ngx-pagination a,
+:host ::ng-deep .ngx-pagination button {
+  color: #333;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+:host ::ng-deep .ngx-pagination a:hover,
+:host ::ng-deep .ngx-pagination button:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+:host ::ng-deep .ngx-pagination .current {
+  background-color: #007bff !important;
+  color: #fff !important;
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: 1px solid #007bff;
+}
+
+:host ::ng-deep .ngx-pagination .disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.page-info {
+  text-align: center;
+  margin-top: 10px;
+  color: #6c757d;
+  font-size: 0.9rem;
 }

@@ -18,9 +18,9 @@ export class GenericHttpClientService {
   http = inject(HttpClient);
   // movies: IMovie[] = [];
   // moviesSignal = signal<IMovie[]>(this.movies);
-  getMovies(httpOptions: string) {
+  getMovies(httpOptions: string, page: number) {
     return this.http.get<IMovieResponse>(
-      `${this.url}${httpOptions}`,
+      `${this.url}${httpOptions}?page=${page}`,
       this.options
     );
   }

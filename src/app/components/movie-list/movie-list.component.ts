@@ -14,7 +14,7 @@ import { EndPoints } from '../../endpoints/endpoints';
 export class MovieListComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 20;
-  totalPages: number = 0;
+  totalPages: number = 500;
   movies: IMovie[] = [];
   loading: boolean = false;
   service = inject(GenericHttpClientService);
@@ -26,8 +26,7 @@ export class MovieListComponent implements OnInit {
     console.log(this.currentPage);
     this.service.getMovies(EndPoints.MOVIES, this.currentPage).subscribe({
       next: (data: IMovieResponse) => {
-        this.movies = data.results;
-        this.totalPages = data.total_pages;
+        this.movies = data.results.filter((m) => !m.adult);
         this.loading = false;
         console.log(this.movies);
       },

@@ -65,27 +65,27 @@
 
 :host ::ng-deep .ngx-pagination a,
 :host ::ng-deep .ngx-pagination button {
-  color: #333;
-  background-color: #f8f9fa;
-  border-radius: 4px;
+  color: white;
+  background-color: transparent;
+  border-radius: 50px;
   padding: 8px 16px;
-  border: 1px solid #dee2e6;
+  border: 1px solid #6b45c8;
   transition: all 0.3s ease;
   text-decoration: none;
 }
 
 :host ::ng-deep .ngx-pagination a:hover,
 :host ::ng-deep .ngx-pagination button:hover {
-  background-color: #e9ecef;
+  background-color: white;
   color: #007bff;
 }
 
 :host ::ng-deep .ngx-pagination .current {
-  background-color: #007bff !important;
-  color: #fff !important;
-  border-radius: 4px;
+  background-color: white !important;
+  color: #6b45c8 !important;
+  border-radius: 50px;
   padding: 8px 16px;
-  border: 1px solid #007bff;
+  /* border: 1px solid #007bff; */
 }
 
 :host ::ng-deep .ngx-pagination .disabled {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IMovie, IMovieResponse } from '../interfaces/movie';
+import { IMovieDetails } from '../interfaces/movie-details';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,9 @@ export class GenericHttpClientService {
   }
 
   getMovieByID(httpOptions: string) {
-    return this.http.get<IMovie>(`${this.url}${httpOptions}`, this.options);
+    return this.http.get<IMovieDetails>(
+      `${this.url}${httpOptions}`,
+      this.options
+    );
   }
 }

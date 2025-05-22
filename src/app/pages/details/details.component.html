@@ -1,26 +1,21 @@
-@if (movie) {
+@if (loading) {
+<div class="loading-spinner">
+  <div class="spinner"></div>
+  <p>Loading movie details...</p>
+</div>
+} @if (movie) {
 <div class="container-fluid p-0">
   <!-- Movie Hero Section with Backdrop -->
   <div class="movie-hero mb-4">
     <div
       class="backdrop-image"
-      [style.backgroundImage]="
-        movie.backdrop_path
-          ? 'url(https://image.tmdb.org/t/p/original' +
-            movie.backdrop_path +
-            ')'
-          : 'url(/assets/images/placeholder-backdrop.jpg)'
-      "
+      [style.backgroundImage]="'url(' + (coverURL + movie.backdrop_path) + ')'"
     ></div>
     <div class="container movie-info d-flex align-items-center">
       <div class="row w-100">
         <div class="col-md-3 d-flex justify-content-center">
           <img
-            [src]="
-              movie.poster_path
-                ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
-                : '/assets/images/placeholder-poster.jpg'
-            "
+            [src]="posterURL + movie.poster_path"
             class="movie-poster img-fluid"
             [alt]="movie.title + ' Poster'"
           />
@@ -29,21 +24,26 @@
           <h1 class="movie-title">{{ movie.title }}</h1>
           <p class="movie-date mb-3">{{ formatDate(movie.release_date) }}</p>
           <div class="d-flex flex-wrap mb-3">
-            <span
-              *ngFor="let genreId of movie?.genre_ids"
-              class="badge badge-custom me-2 mb-2"
-            >
-              {{ movie.genre_ids[genreId] }}
+            @for(genre of movie.genres;track $index) {
+            <span class="badge badge-custom me-2 mb-2">
+              {{ genre.name }}
             </span>
+
+            }
           </div>
-          <p class="mb-4">{{ movie?.overview }}</p>
+          <p class="mb-4">{{ movie.overview }}</p>
           <div class="d-flex align-items-center">
-            <div *ngIf="movie?.adult">
+            @if(movie.adult){
+            <div>
               <span class="badge adult-badge me-3">18+</span>
             </div>
+            }
             <div>
               <i class="fas fa-language me-2"></i>
-              <span>{{ movie.original_language }}</span>
+              @for (item of movie.spoken_languages; track $index) {
+              <span> {{ item.english_name }}, </span>
+              }
+              <!-- <span>{{ movie.spoken_languages }}</span> -->
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="section-heading">About the Movie</h3>
             <div class="rating-circle">
-              <span>{{ movie.vote_average.toFixed(1) }}</span>
+              <span>{{ movie.vote_average.toFixed(2) }}</span>
             </div>
           </div>
 
@@ -87,7 +87,7 @@
                 <div class="stats-item">
                   <div class="stats-value">
                     <i class="fas fa-video me-2"></i>
-                    <span>{{ movie.video ? "Yes" : "No" }}</span>
+                    <span class="ml-1">{{ movie.video ? "Yes" : "No" }}</span>
                   </div>
                   <div class="stats-label">Video Available</div>
                 </div>

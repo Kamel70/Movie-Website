@@ -1,29 +1,27 @@
-<div class="container">
-  <div class="logo">Mailehereko</div>
-  <div class="header">
-    <h1>Movies</h1>
-  </div>
-
-  <div class="search-container">
-    <div class="search-icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+<div class="slider-container">
+  <swiper-container
+    [slides-per-view]="1"
+    [space-between]="0"
+    [loop]="true"
+    [autoplay]="autoplayConfig"
+    [navigation]="true"
+    [pagination]="paginationConfig"
+    class="movie-slider"
+  >
+    @for (movie of movies; track $index) {
+    <swiper-slide class="movie-slide">
+      <div class="movie-card" (click)="goToMovie(movie.id)">
+        <img
+          [src]="movie.poster"
+          [alt]="movie.title"
+          class="movie-poster"
+          loading="lazy"
         />
-      </svg>
-    </div>
-    <input
-      type="text"
-      class="search-box"
-      placeholder="Search movies or tv shows"
-    />
-  </div>
-  <app-segment-control></app-segment-control>
-  <app-movie-list></app-movie-list>
+        <div class="movie-overlay">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+        </div>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
 </div>

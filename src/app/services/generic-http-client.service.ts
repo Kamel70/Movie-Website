@@ -12,7 +12,7 @@ export class GenericHttpClientService {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer api key',
+      Authorization: 'api key',
     },
   };
   constructor() {}

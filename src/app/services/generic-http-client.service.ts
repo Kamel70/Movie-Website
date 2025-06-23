@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IMovie, IMovieResponse } from '../interfaces/movie';
 import { IMovieDetails } from '../interfaces/movie-details';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { ITvShowResponse } from '../interfaces/ITvShow';
 import { ITvShowDetails } from '../interfaces/ITvShow-details';
 
@@ -15,7 +15,7 @@ export class GenericHttpClientService {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${environment.tmdbApiKey}`,
+      Authorization: `Bearer ${environment.apiKey}`,
     },
   };
   constructor() {}

@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
+    "build:prod": "node ./scripts/set-env.js --environment=prod && ng build --configuration=production",
+    "start": "node ./scripts/set-env.js --environment=dev && ng serve",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "vercel-build": "node ./scripts/set-env.js --environment=prod && ng build --configuration=production"
   },
   "private": true,
   "dependencies": {

@@ -1,7 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { CardSliderComponent } from '../../components/card-slider/card-slider.component';
+import { GenericHttpClientService } from '../../services/generic-http-client.service';
+import { IMovie, IMovieResponse } from '../../interfaces/movie';
+import { EndPoints } from '../../endpoints/endpoints';
+import { ITvShow, ITvShowResponse } from '../../interfaces/ITvShow';
 
 register();
 
@@ -19,40 +28,14 @@ interface Movie {
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit {
-  movies: Movie[] = [
-    {
-      id: 1,
-      title: 'The Dark Knight',
-      poster: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
-    },
-    {
-      id: 2,
-      title: 'Inception',
-      poster: 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
-    },
-    {
-      id: 3,
-      title: 'Interstellar',
-      poster: 'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
-    },
-    {
-      id: 4,
-      title: 'Avengers: Endgame',
-      poster: 'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
-    },
-    {
-      id: 5,
-      title: 'The Matrix',
-      poster: 'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
-    },
-    {
-      id: 6,
-      title: 'Pulp Fiction',
-      poster: 'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',
-    },
-  ];
-
+export class HomeComponent {
+  moviess: IMovie[] = [];
+  topRatedMovies: IMovie[] = [];
+  upComingMoviess: IMovie[] = [];
+  topRatedTvShows: ITvShow[] = [];
+  tvShows: ITvShow[] = [];
+  service = inject(GenericHttpClientService);
+  coverURL: string = 'https://image.tmdb.org/t/p/original';
   autoplayConfig = {
     delay: 3000,
     disableOnInteraction: false,
@@ -62,10 +45,61 @@ export class HomeComponent implements OnInit {
     clickable: true,
   };
 
-  constructor() {}
-
-  ngOnInit() {
-    // Component initialization
+  constructor() {
+    // fetch popular movies
+    this.service.getMovies(EndPoints.POPULAR_MOVIES, 1).subscribe({
+      next: (data: IMovieResponse) => {
+        this.moviess = data.results.filter((m) => !m.adult).slice(0, 10);
+        console.log(this.moviess);
+      },
+      error: (error) => {
+        console.error('Error fetching movies:', error);
+      },
+    });
+    // fetch popular TV shows
+    this.service.getTVShows(EndPoints.POPULAR_TV_SHOWS, 1).subscribe({
+      next: (data: ITvShowResponse) => {
+        this.tvShows = data.results.filter((m) => !m.adult).slice(0, 10);
+        console.log(this.tvShows);
+      },
+      error: (error) => {
+        console.error('Error fetching movies:', error);
+      },
+    });
+    // fetch upcoming movies
+    this.service.getMovies(EndPoints.UP_COMING_MOVIES, 1).subscribe({
+      next: (data: IMovieResponse) => {
+        this.upComingMoviess = data.results
+          .filter((m) => !m.adult)
+          .slice(0, 10);
+        console.log(this.moviess);
+      },
+      error: (error) => {
+        console.error('Error fetching movies:', error);
+      },
+    });
+    // fetch top rated movies
+    this.service.getMovies(EndPoints.TOP_Rated_MOVIES, 1).subscribe({
+      next: (data: IMovieResponse) => {
+        this.topRatedMovies = data.results.filter((m) => !m.adult).slice(0, 10);
+        console.log(this.moviess);
+      },
+      error: (error) => {
+        console.error('Error fetching movies:', error);
+      },
+    });
+    // fetch top rated TV shows
+    this.service.getTVShows(EndPoints.TOP_Rated_TV_SHOWS, 1).subscribe({
+      next: (data: ITvShowResponse) => {
+        this.topRatedTvShows = data.results
+          .filter((m) => !m.adult)
+          .slice(0, 10);
+        console.log(this.tvShows);
+      },
+      error: (error) => {
+        console.error('Error fetching movies:', error);
+      },
+    });
   }
 
   goToMovie(movieId: number) {

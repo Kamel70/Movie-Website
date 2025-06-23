@@ -8,11 +8,11 @@
     [pagination]="paginationConfig"
     class="movie-slider"
   >
-    @for (movie of movies; track $index) {
+    @for (movie of upComingMoviess; track $index) {
     <swiper-slide class="movie-slide">
       <div class="movie-card" (click)="goToMovie(movie.id)">
         <img
-          [src]="movie.poster"
+          [src]="coverURL + movie.backdrop_path"
           [alt]="movie.title"
           class="movie-poster"
           loading="lazy"
@@ -26,4 +26,23 @@
   </swiper-container>
 </div>
 
-<app-card-slider></app-card-slider>
+<app-card-slider
+  [title]="'Top Rated Movies'"
+  [content]="topRatedMovies"
+  [type]="'movie'"
+></app-card-slider>
+<app-card-slider
+  [title]="'Popular Movies'"
+  [content]="moviess"
+  [type]="'movie'"
+></app-card-slider>
+<app-card-slider
+  [title]="'Top Rated Shows'"
+  [content]="topRatedTvShows"
+  [type]="'tv'"
+></app-card-slider>
+<app-card-slider
+  [title]="'Popular TV Shows'"
+  [content]="tvShows"
+  [type]="'tv'"
+></app-card-slider>

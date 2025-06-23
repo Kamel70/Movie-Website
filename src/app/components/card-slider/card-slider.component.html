@@ -1,1 +1,140 @@
-<p>card-slider works!</p>
+<div class="movies-section">
+  <!-- Popular Movies Section -->
+  <section class="movie-category" data-aos="fade-up" data-aos-duration="1000">
+    <h2 class="section-title">Popular Movies</h2>
+    <swiper-container
+      [slides-per-view]="4"
+      [space-between]="20"
+      [navigation]="true"
+      [breakpoints]="breakpoints"
+      class="movie-cards-swiper"
+    >
+      <swiper-slide
+        *ngFor="let movie of popularMovies; let i = index"
+        [attr.data-aos]="'fade-up'"
+        [attr.data-aos-delay]="i * 100"
+        [attr.data-aos-duration]="800"
+      >
+        <div class="movie-card" (click)="goToMovie(movie.id)">
+          <div class="card-image">
+            <img [src]="movie.poster" [alt]="movie.title" loading="lazy" />
+            <div class="card-overlay">
+              <div class="play-button">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="movie-title">{{ movie.title }}</h3>
+            <div class="movie-meta">
+              <span class="rating">⭐ {{ movie.rating }}</span>
+              <span class="year">{{ movie.year }}</span>
+            </div>
+            <p class="genre">{{ movie.genre }}</p>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </section>
+
+  <!-- Trending Movies Section -->
+  <section
+    class="movie-category"
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    data-aos-delay="200"
+  >
+    <h2 class="section-title">Trending Now</h2>
+    <swiper-container
+      [slides-per-view]="4"
+      [space-between]="20"
+      [navigation]="true"
+      [breakpoints]="breakpoints"
+      class="movie-cards-swiper"
+    >
+      <swiper-slide
+        *ngFor="let movie of trendingMovies; let i = index"
+        [attr.data-aos]="'fade-up'"
+        [attr.data-aos-delay]="i * 100"
+        [attr.data-aos-duration]="800"
+      >
+        <div class="movie-card" (click)="goToMovie(movie.id)">
+          <div class="card-image">
+            <img [src]="movie.poster" [alt]="movie.title" loading="lazy" />
+            <div class="card-overlay">
+              <div class="play-button">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="movie-title">{{ movie.title }}</h3>
+            <div class="movie-meta">
+              <span class="rating">⭐ {{ movie.rating }}</span>
+              <span class="year">{{ movie.year }}</span>
+            </div>
+            <p class="genre">{{ movie.genre }}</p>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </section>
+
+  <!-- New Releases Section -->
+  <section
+    class="movie-category"
+    data-aos="fade-up"
+    data-aos-duration="1000"
+    data-aos-delay="400"
+  >
+    <h2 class="section-title">New Releases</h2>
+    <div class="grid-layout">
+      <div
+        class="movie-card grid-card"
+        *ngFor="let movie of newReleases; let i = index"
+        [attr.data-aos]="'zoom-in'"
+        [attr.data-aos-delay]="i * 150"
+        [attr.data-aos-duration]="600"
+        (click)="goToMovie(movie.id)"
+      >
+        <div class="card-image">
+          <img [src]="movie.poster" [alt]="movie.title" loading="lazy" />
+          <div class="card-overlay">
+            <div class="play-button">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <div class="movie-meta">
+            <span class="rating">⭐ {{ movie.rating }}</span>
+            <span class="year">{{ movie.year }}</span>
+          </div>
+          <p class="genre">{{ movie.genre }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

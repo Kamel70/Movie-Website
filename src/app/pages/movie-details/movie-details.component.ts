@@ -1,17 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IMovie, IMovieResponse } from '../../interfaces/movie';
 import { GenericHttpClientService } from '../../services/generic-http-client.service';
-import { EndPoints } from '../../endpoints/endpoints';
 import { IMovieDetails } from '../../interfaces/movie-details';
+import { EndPoints } from '../../endpoints/endpoints';
 
 @Component({
-  selector: 'app-details',
+  selector: 'app-movie-details',
   imports: [],
-  templateUrl: './details.component.html',
-  styleUrl: './details.component.css',
+  templateUrl: './movie-details.component.html',
+  styleUrl: './movie-details.component.css',
 })
-export class DetailsComponent {
+export class MovieDetailsComponent {
   route = inject(ActivatedRoute);
   service = inject(GenericHttpClientService);
   movieId!: string;

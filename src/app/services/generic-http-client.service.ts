@@ -4,6 +4,7 @@ import { IMovie, IMovieResponse } from '../interfaces/movie';
 import { IMovieDetails } from '../interfaces/movie-details';
 import { environment } from '../../environments/environment.prod';
 import { ITvShowResponse } from '../interfaces/ITvShow';
+import { ITvShowDetails } from '../interfaces/ITvShow-details';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,12 @@ export class GenericHttpClientService {
 
   getMovieByID(httpOptions: string) {
     return this.http.get<IMovieDetails>(
+      `${this.url}${httpOptions}`,
+      this.options
+    );
+  }
+  getTvShowByID(httpOptions: string) {
+    return this.http.get<ITvShowDetails>(
       `${this.url}${httpOptions}`,
       this.options
     );

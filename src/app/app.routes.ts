@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { DetailsComponent } from './pages/details/details.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { TvShowsComponent } from './pages/tv-shows/tv-shows.component';
+import { MovieDetailsComponent } from './pages/movie-details/movie-details.component';
+import { TvShowDetailsComponent } from './pages/tv-show-details/tv-show-details.component';
 
 export const routes: Routes = [
   {
@@ -16,7 +17,7 @@ export const routes: Routes = [
   },
   {
     path: 'movies/:id',
-    component: DetailsComponent,
+    component: MovieDetailsComponent,
   },
   {
     path: 'movies',
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'tvshows',
     component: TvShowsComponent,
+  },
+  {
+    path: 'tvshows/:id',
+    component: TvShowDetailsComponent,
   },
 ];

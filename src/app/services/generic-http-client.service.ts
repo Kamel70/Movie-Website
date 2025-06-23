@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { IMovie, IMovieResponse } from '../interfaces/movie';
 import { IMovieDetails } from '../interfaces/movie-details';
 import { environment } from '../../environments/environment.prod';
+import { ITvShowResponse } from '../interfaces/ITvShow';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,13 @@ export class GenericHttpClientService {
   // moviesSignal = signal<IMovie[]>(this.movies);
   getMovies(httpOptions: string, page: number) {
     return this.http.get<IMovieResponse>(
+      `${this.url}${httpOptions}?page=${page}`,
+      this.options
+    );
+  }
+
+  getTVShows(httpOptions: string, page: number) {
+    return this.http.get<ITvShowResponse>(
       `${this.url}${httpOptions}?page=${page}`,
       this.options
     );

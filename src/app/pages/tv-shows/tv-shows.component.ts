@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { TvShowListComponent } from '../../components/tv-show-list/tv-show-list.component';
 
 @Component({
   selector: 'app-tv-shows',
-  imports: [],
+  imports: [TvShowListComponent],
   templateUrl: './tv-shows.component.html',
-  styleUrl: './tv-shows.component.css'
+  styleUrl: './tv-shows.component.css',
 })
-export class TvShowsComponent {
-
-}
+export class TvShowsComponent {}

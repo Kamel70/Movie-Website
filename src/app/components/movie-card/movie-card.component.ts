@@ -14,7 +14,7 @@ export class MovieCardComponent {
   movieURL = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2';
 
   onMovieClick(id: number) {
-    this.router.navigate(['/test', id]);
+    this.router.navigate(['/movies', id]);
     console.log('Movie clicked:', id);
   }
 }

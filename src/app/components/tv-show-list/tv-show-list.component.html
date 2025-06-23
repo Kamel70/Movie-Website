@@ -1,0 +1,32 @@
+<div class="contianer">
+  @if (loading) {
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading movies...</p>
+  </div>
+  }@else {
+  <div class="tvshows-grid">
+    @for (tvshow of tvshows|paginate: { itemsPerPage: itemsPerPage, currentPage:
+    currentPage, totalItems: totalPages * itemsPerPage, id: 'server' }; track
+    $index) {
+    <app-tv-show-card [tvShow]="tvshow"></app-tv-show-card>
+    }
+  </div>
+  }
+  <!-- Pagination controls -->
+  <div class="pagination-container">
+    <pagination-controls
+      id="server"
+      (pageChange)="onPageChange($event)"
+      [maxSize]="5"
+      [directionLinks]="true"
+      [responsive]="true"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page"
+    >
+    </pagination-controls>
+  </div>
+
+  <div class="page-info">Page {{ currentPage }} of {{ totalPages }}</div>
+</div>

@@ -2,17 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IMovie, IMovieResponse } from '../interfaces/movie';
 import { IMovieDetails } from '../interfaces/movie-details';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GenericHttpClientService {
-  url = 'https://api.themoviedb.org/3/';
+  url = environment.tmdbBaseUrl;
   options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'api key',
+      Authorization: `Bearer ${environment.tmdbApiKey}`,
     },
   };
   constructor() {}

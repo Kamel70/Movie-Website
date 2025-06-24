@@ -145,7 +145,6 @@
 
 .tv-overview-text {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -153,7 +152,6 @@
 @media (max-width: 768px) {
   .tv-overview-text {
     text-align: center;
-    -webkit-line-clamp: 3;
   }
 }
 
@@ -164,20 +162,7 @@
   margin-top: -50px;
   position: relative;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-@media (max-width: 768px) {
-  .tv-overview {
-    padding: 25px;
-    margin-top: -30px;
-  }
-}
-
-@media (max-width: 576px) {
-  .tv-overview {
-    padding: 20px;
-    margin-top: -20px;
-  }
+  color: black;
 }
 
 .rating-circle {

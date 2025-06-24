@@ -37,15 +37,18 @@
             {{ formatDate(tvShow.last_air_date) }}
             }
           </p>
-          <div class="d-flex flex-wrap mb-3">
+          <div class="d-flex flex-wrap mb-3 mx-auto mx-sm-0">
             @for(genre of tvShow.genres; track genre.id) {
             <span class="badge badge-custom me-2 mb-2">
               {{ genre.name }}
             </span>
             }
           </div>
-          <p class="mb-4 tv-overview-text">{{ tvShow.overview }}</p>
-          <div class="d-flex flex-wrap align-items-center">
+          <!-- <p class="mb-4 tv-overview-text">{{ tvShow.overview }}</p> -->
+          <div
+            class="d-flex flex-wrap align-items-center mx-auto mx-sm-0"
+            style="gap: 6px"
+          >
             @if(tvShow.adult) {
             <div class="me-3 mb-2">
               <span class="badge adult-badge">18+</span>
@@ -194,7 +197,7 @@
       </div>
 
       <div class="col-lg-4">
-        <div class="tv-overview h-100">
+        <div class="tv-overview h-100" style="margin-bottom: 20px">
           <h3 class="section-heading">Additional Info</h3>
 
           <div class="mb-4">
@@ -252,7 +255,6 @@
           <div class="mb-4">
             <h5><i class="fas fa-info-circle me-2"></i> Details</h5>
             <div class="ms-4">
-              <p><strong>Show ID:</strong> {{ tvShow.id }}</p>
               <p>
                 <strong>Vote Count:</strong>
                 {{ tvShow.vote_count.toLocaleString() }}

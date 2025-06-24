@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "generate-env": "echo \"window.env = { API_KEY: '$API_KEY' };\" > src/assets/env.js",
+    "generate-env": "echo \"window.env = { API_KEY: '$API_KEY'};\" > src/assets/env.js",
     "build": "npm run generate-env && ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint"

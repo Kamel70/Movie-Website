@@ -4,7 +4,6 @@
       <img src="logo.png" alt="Logo" />
     </a>
 
-    <!-- Hamburger button for mobile -->
     <button
       class="navbar-toggler"
       type="button"
@@ -15,23 +14,39 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapsible navbar content -->
     <div
       class="navbar-collapse justify-content-end"
       [ngClass]="{ show: isMenuOpen, collapse: !isMenuOpen }"
       id="navbarNav"
     >
       <ul class="navbar-nav">
-        @for (item of navItems; track $index) {
-        <li class="nav-item" (click)="handleNavClick(item)">
-          <a [ngClass]="{ 'active-link': item.active }" class="nav-link">
-            {{ item.name }}
-            @if (item.icon) {
-            <i class="{{ item.icon }} arrow"></i>
-            }
-          </a>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/home"
+            routerLinkActive="active-link"
+            (click)="closeMenu()"
+            >Home</a
+          >
         </li>
-        }
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/movies"
+            routerLinkActive="active-link"
+            (click)="closeMenu()"
+            >Movies</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/tvshows"
+            routerLinkActive="active-link"
+            (click)="closeMenu()"
+            >TV Shows</a
+          >
+        </li>
       </ul>
     </div>
   </div>

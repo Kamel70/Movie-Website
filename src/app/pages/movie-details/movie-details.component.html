@@ -12,38 +12,44 @@
       [style.backgroundImage]="'url(' + (coverURL + movie.backdrop_path) + ')'"
     ></div>
     <div class="container movie-info d-flex align-items-center">
-      <div class="row w-100">
-        <div class="col-md-3 d-flex justify-content-center">
-          <img
-            [src]="posterURL + movie.poster_path"
-            class="movie-poster img-fluid"
-            [alt]="movie.title + ' Poster'"
-          />
+      <div class="row w-100 mx-auto">
+        <div
+          class="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center mb-4 mb-md-0"
+        >
+          <div class="poster-container">
+            <img
+              [src]="posterURL + movie.poster_path"
+              class="movie-poster"
+              [alt]="movie.title + ' Poster'"
+            />
+          </div>
         </div>
-        <div class="col-md-9 d-flex flex-column justify-content-center">
+        <div
+          class="col-lg-9 col-md-8 col-sm-6 d-flex flex-column justify-content-center"
+        >
           <h1 class="movie-title">{{ movie.title }}</h1>
-          <p class="movie-date mb-3">{{ formatDate(movie.release_date) }}</p>
-          <div class="d-flex flex-wrap mb-3">
+          <p class="movie-date">{{ formatDate(movie.release_date) }}</p>
+          <div class="badges-container d-flex flex-wrap mb-3 mx-auto mx-sm-0">
             @for(genre of movie.genres;track $index) {
-            <span class="badge badge-custom me-2 mb-2">
+            <span class="badge badge-custom">
               {{ genre.name }}
             </span>
-
             }
           </div>
-          <p class="mb-4">{{ movie.overview }}</p>
-          <div class="d-flex align-items-center">
+          <div
+            class="d-flex flex-wrap align-items-center mx-auto mx-sm-0"
+            style="gap: 6px"
+          >
             @if(movie.adult){
-            <div>
-              <span class="badge adult-badge me-3">18+</span>
+            <div class="me-3 mb-2">
+              <span class="badge adult-badge">18+</span>
             </div>
             }
-            <div>
+            <div class="language-info mb-2">
               <i class="fas fa-language me-2"></i>
               @for (item of movie.spoken_languages; track $index) {
-              <span> {{ item.english_name }}, </span>
+              <span>{{ item.english_name }}, </span>
               }
-              <!-- <span>{{ movie.spoken_languages }}</span> -->
             </div>
           </div>
         </div>
@@ -54,10 +60,12 @@
   <!-- Movie Details Section -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-lg-8 mb-4">
         <div class="movie-overview">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="section-heading">About the Movie</h3>
+          <div
+            class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4"
+          >
+            <h3 class="section-heading mb-3 mb-sm-0">About the Movie</h3>
             <div class="rating-circle">
               <span>{{ movie.vote_average.toFixed(2) }}</span>
             </div>
@@ -66,37 +74,29 @@
           <p class="mb-4">{{ movie.overview }}</p>
 
           <div class="stats-container">
-            <div class="row text-center">
-              <div class="col-md-3 col-6">
-                <div class="stats-item">
-                  <div class="stats-value">
-                    {{ movie.popularity.toFixed(1) }}
-                  </div>
-                  <div class="stats-label">Popularity</div>
+            <div class="stats-grid">
+              <div class="stats-item">
+                <div class="stats-value">
+                  {{ movie.popularity.toFixed(1) }}
                 </div>
+                <div class="stats-label">Popularity</div>
               </div>
-              <div class="col-md-3 col-6">
-                <div class="stats-item">
-                  <div class="stats-value">
-                    {{ movie.vote_count.toLocaleString() }}
-                  </div>
-                  <div class="stats-label">Vote Count</div>
+              <div class="stats-item">
+                <div class="stats-value">
+                  {{ movie.vote_count.toLocaleString() }}
                 </div>
+                <div class="stats-label">Vote Count</div>
               </div>
-              <div class="col-md-3 col-6">
-                <div class="stats-item">
-                  <div class="stats-value">
-                    <i class="fas fa-video me-2"></i>
-                    <span class="ml-1">{{ movie.video ? "Yes" : "No" }}</span>
-                  </div>
-                  <div class="stats-label">Video Available</div>
+              <div class="stats-item">
+                <div class="stats-value">
+                  <i class="fas fa-video me-2"></i>
+                  <span>{{ movie.video ? "Yes" : "No" }}</span>
                 </div>
+                <div class="stats-label">Video Available</div>
               </div>
-              <div class="col-md-3 col-6">
-                <div class="stats-item">
-                  <div class="stats-value">{{ movie.id }}</div>
-                  <div class="stats-label">Movie ID</div>
-                </div>
+              <div class="stats-item">
+                <div class="stats-value">{{ movie.id }}</div>
+                <div class="stats-label">Movie ID</div>
               </div>
             </div>
           </div>
@@ -104,15 +104,18 @@
       </div>
 
       <div class="col-lg-4 mt-4 mt-lg-0">
-        <div class="movie-overview h-100">
+        <div
+          class="movie-overview movie-overview-special"
+          style="margin-bottom: 20px"
+        >
           <h3 class="section-heading">Additional Info</h3>
-          <div class="mb-4">
+          <div class="additional-info-item">
             <h5><i class="fas fa-film me-2"></i> Original Title</h5>
-            <p class="ms-4">{{ movie.original_title }}</p>
+            <p>{{ movie.original_title }}</p>
           </div>
-          <div>
+          <div class="additional-info-item">
             <h5><i class="fas fa-globe me-2"></i> Original Language</h5>
-            <p class="ms-4">{{ movie.original_language }}</p>
+            <p>{{ movie.original_language }}</p>
           </div>
         </div>
       </div>

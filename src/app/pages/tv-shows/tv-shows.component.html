@@ -1,7 +1,7 @@
 <div class="container">
   <div class="logo">Mailehereko</div>
   <div class="header">
-    <h1>Movies</h1>
+    <h1>TV Shows</h1>
   </div>
 
   <div class="search-container">
@@ -21,8 +21,16 @@
     <input
       type="text"
       class="search-box"
-      placeholder="Search movies or tv shows"
+      placeholder="Search tv shows"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchChange()"
     />
   </div>
-  <app-tv-show-list></app-tv-show-list>
+  <app-tv-show-list
+    [loading]="loading"
+    [tvshows]="tvshows"
+    [currentPage]="currentPage"
+    [onPageChange]="onPageChange"
+    [totalPages]="totalPages"
+  ></app-tv-show-list>
 </div>

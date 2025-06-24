@@ -15,7 +15,6 @@
           [src]="coverURL + movie.backdrop_path"
           [alt]="movie.title"
           class="movie-poster"
-          loading="lazy"
         />
         <div class="movie-overlay">
           <h3 class="movie-title">{{ movie.title }}</h3>
@@ -37,12 +36,7 @@
   [type]="'movie'"
 ></app-card-slider>
 <app-card-slider
-  [title]="'Top Rated Shows'"
+  [title]="'Top Rated TV Shows'"
   [content]="topRatedTvShows"
-  [type]="'tv'"
-></app-card-slider>
-<app-card-slider
-  [title]="'Popular TV Shows'"
-  [content]="tvShows"
   [type]="'tv'"
 ></app-card-slider>

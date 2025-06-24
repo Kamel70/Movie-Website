@@ -8,4 +8,6 @@ export class EndPoints {
   static UP_COMING_MOVIES: string = 'movie/upcoming';
   static TOP_Rated_MOVIES: string = 'movie/top_rated';
   static TOP_Rated_TV_SHOWS: string = 'tv/top_rated';
+  static SEARCH_MOVIES: string = 'search/movie?query=';
+  static SEARCH_TV_SHOWS: string = 'search/tv?query=';
 }

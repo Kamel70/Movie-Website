@@ -48,4 +48,17 @@ export class GenericHttpClientService {
       this.options
     );
   }
+
+  searchTVShows(httpOptions: string, query: string, page: number = 1) {
+    return this.http.get<ITvShowResponse>(
+      `${this.url}${httpOptions}${query}&page=${page}`,
+      this.options
+    );
+  }
+  searchMovies(httpOptions: string, query: string, page: number = 1) {
+    return this.http.get<IMovieResponse>(
+      `${this.url}${httpOptions}${query}&page=${page}`,
+      this.options
+    );
+  }
 }

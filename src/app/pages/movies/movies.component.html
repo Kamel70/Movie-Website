@@ -21,8 +21,16 @@
     <input
       type="text"
       class="search-box"
-      placeholder="Search movies or tv shows"
+      placeholder="Search movies"
+      [(ngModel)]="searchQuery"
+      (input)="handleInputChange()"
     />
   </div>
-  <app-movie-list></app-movie-list>
+  <app-movie-list
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    [loading]="loading"
+    [movies]="movies"
+    [onPageChange]="onPageChange"
+  ></app-movie-list>
 </div>

@@ -1,7 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { ITvShow, ITvShowResponse } from '../../interfaces/ITvShow';
-import { GenericHttpClientService } from '../../services/generic-http-client.service';
-import { EndPoints } from '../../endpoints/endpoints';
+import { Component, Input } from '@angular/core';
+import { ITvShow } from '../../interfaces/ITvShow';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TvShowCardComponent } from '../tv-show-card/tv-show-card.component';
 
@@ -12,33 +10,10 @@ import { TvShowCardComponent } from '../tv-show-card/tv-show-card.component';
   styleUrl: './tv-show-list.component.css',
 })
 export class TvShowListComponent {
-  currentPage: number = 1;
   itemsPerPage: number = 20;
-  totalPages: number = 500;
-  tvshows: ITvShow[] = [];
-  loading: boolean = false;
-  service = inject(GenericHttpClientService);
-  ngOnInit(): void {
-    this.fetchTVShows();
-  }
-  fetchTVShows() {
-    this.loading = true;
-    console.log(this.currentPage);
-    this.service.getTVShows(EndPoints.TV_SHOWS, this.currentPage).subscribe({
-      next: (data: ITvShowResponse) => {
-        this.tvshows = data.results.filter((m) => !m.adult);
-        this.loading = false;
-        console.log(this.tvshows);
-      },
-      error: (error) => {
-        console.error('Error fetching movies:', error);
-        this.loading = false;
-      },
-    });
-  }
-
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.fetchTVShows();
-  }
+  @Input() totalPages: number = 500;
+  @Input() onPageChange!: (page: number) => void;
+  @Input() currentPage: number = 1;
+  @Input() tvshows: ITvShow[] = [];
+  @Input() loading: boolean = false;
 }

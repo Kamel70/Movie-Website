@@ -4,7 +4,16 @@
     <div class="spinner"></div>
     <p>Loading movies...</p>
   </div>
-  }@else {
+  }@else { @if( tvshows.length === 0) {
+  <div class="no-tvshows-container mx-auto">
+    <i class="fa-solid fa-tv tvshows-icon"></i>
+    <h2 class="no-tvshows-title">No TV Shows Found</h2>
+    <p class="no-tvshows-text">
+      We couldn't find any TV Shows matching your search keyword.
+    </p>
+  </div>
+
+  } @else {
   <div class="tvshows-grid">
     @for (tvshow of tvshows|paginate: { itemsPerPage: itemsPerPage, currentPage:
     currentPage, totalItems: totalPages * itemsPerPage, id: 'server' }; track
@@ -12,7 +21,7 @@
     <app-tv-show-card [tvShow]="tvshow"></app-tv-show-card>
     }
   </div>
-  }
+
   <!-- Pagination controls -->
   <div class="pagination-container">
     <pagination-controls
@@ -29,4 +38,5 @@
   </div>
 
   <div class="page-info">Page {{ currentPage }} of {{ totalPages }}</div>
+  }}
 </div>

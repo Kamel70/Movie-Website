@@ -99,3 +99,61 @@
   color: #6c757d;
   font-size: 0.9rem;
 }
+.no-tvshows-container {
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 0;
+}
+
+.tvshows-icon {
+  font-size: 4rem;
+  color: white;
+  margin-bottom: 20px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.no-tvshows-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.no-tvshows-text {
+  font-size: 1rem;
+  color: white;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  .no-tvshows-container {
+    padding: 40px 20px;
+    margin: 20px;
+  }
+
+  .tvshows-icon {
+    font-size: 3rem;
+  }
+
+  .no-tvshows-title {
+    font-size: 1.5rem;
+  }
+}

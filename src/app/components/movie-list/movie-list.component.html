@@ -4,7 +4,16 @@
     <div class="spinner"></div>
     <p>Loading movies...</p>
   </div>
-  }@else {
+  }@else { @if( movies.length === 0) {
+  <div class="no-movies-container mx-auto">
+    <i class="fas fa-film movie-icon"></i>
+    <h2 class="no-movies-title">No Movies Found</h2>
+    <p class="no-movies-text">
+      We couldn't find any movies matching your search keyword.
+    </p>
+  </div>
+
+  } @else {
   <div class="movie-grid">
     @for (movie of movies|paginate: { itemsPerPage: itemsPerPage, currentPage:
     currentPage, totalItems: totalPages * itemsPerPage, id: 'server' }; track
@@ -12,7 +21,7 @@
     <app-movie-card [movie]="movie"></app-movie-card>
     }
   </div>
-  }
+
   <!-- Pagination controls -->
   <div class="pagination-container">
     <pagination-controls
@@ -29,4 +38,5 @@
   </div>
 
   <div class="page-info">Page {{ currentPage }} of {{ totalPages }}</div>
+  } }
 </div>

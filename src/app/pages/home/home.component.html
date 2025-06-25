@@ -2,22 +2,50 @@
   <swiper-container
     [slides-per-view]="1"
     [space-between]="0"
-    [loop]="true"
+    [loop]="shouldEnableLoop"
     [autoplay]="autoplayConfig"
     [navigation]="true"
     [pagination]="paginationConfig"
+    [effect]="'fade'"
+    [speed]="800"
     class="movie-slider"
   >
-    @for (movie of upComingMoviess; track $index) {
+    @for (movie of processedMovies; track movie.id + '_' + $index) {
     <swiper-slide class="movie-slide">
       <div class="movie-card" (click)="goToMovie(movie.id)">
         <img
           [src]="coverURL + movie.backdrop_path"
           [alt]="movie.title"
           class="movie-poster"
+          loading="lazy"
         />
         <div class="movie-overlay">
-          <h3 class="movie-title">{{ movie.title }}</h3>
+          <div class="movie-content">
+            <h3 class="movie-title">{{ movie.title }}</h3>
+            <p class="movie-description" *ngIf="movie.overview">
+              {{ movie.overview | slice : 0 : 150
+              }}{{ movie.overview?.length > 150 ? "..." : "" }}
+            </p>
+            @if(movie.release_date || movie.vote_average){
+            <div class="movie-meta">
+              @if(movie.release_date){
+              <span class="release-year">
+                {{ movie.release_date | date : "yyyy" }}
+              </span>
+              } @if(movie.vote_average){
+              <span class="rating">
+                ⭐ {{ movie.vote_average | number : "1.1-1" }}
+              </span>
+              }
+            </div>
+            }
+            <button
+              class="watch-btn"
+              (click)="$event.stopPropagation(); goToMovie(movie.id)"
+            >
+              Watch Now
+            </button>
+          </div>
         </div>
       </div>
     </swiper-slide>
@@ -32,11 +60,16 @@
 ></app-card-slider>
 <app-card-slider
   [title]="'Popular Movies'"
-  [content]="moviess"
+  [content]="movies"
   [type]="'movie'"
 ></app-card-slider>
 <app-card-slider
   [title]="'Top Rated TV Shows'"
   [content]="topRatedTvShows"
+  [type]="'tv'"
+></app-card-slider>
+<app-card-slider
+  [title]="'Popular TV Shows'"
+  [content]="tvShows"
   [type]="'tv'"
 ></app-card-slider>

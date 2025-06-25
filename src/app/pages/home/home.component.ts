@@ -176,40 +176,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     console.log(`Navigating to movie with ID: ${movieId}`);
   }
-
-  // Enhanced autoplay configuration
-  autoplayConfig = {
-    delay: 4000,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  };
-
-  // Enhanced pagination configuration
-  paginationConfig = {
-    clickable: true,
-    dynamicBullets: true,
-  };
-
-  // Computed property to handle loop logic
-  get shouldEnableLoop(): boolean {
-    return this.upComingMovies && this.upComingMovies.length >= 3;
-  }
-
-  // Method to duplicate slides if needed for loop
-  get processedMovies(): any[] {
-    if (!this.upComingMovies || this.upComingMovies.length === 0) {
-      return [];
-    }
-
-    // If we have fewer than 3 movies, duplicate them to enable smooth loop
-    if (this.upComingMovies.length < 3) {
-      const duplicatedMovies = [...this.upComingMovies];
-      while (duplicatedMovies.length < 3) {
-        duplicatedMovies.push(...this.upComingMovies);
-      }
-      return duplicatedMovies.slice(0, 6); // Limit to avoid too many duplicates
-    }
-
-    return this.upComingMovies;
-  }
 }

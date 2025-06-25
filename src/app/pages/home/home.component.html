@@ -2,15 +2,13 @@
   <swiper-container
     [slides-per-view]="1"
     [space-between]="0"
-    [loop]="shouldEnableLoop"
-    [autoplay]="autoplayConfig"
     [navigation]="true"
-    [pagination]="paginationConfig"
     [effect]="'fade'"
-    [speed]="800"
+    [speed]="400"
+    [loop]="true"
     class="movie-slider"
   >
-    @for (movie of processedMovies; track movie.id + '_' + $index) {
+    @for (movie of upComingMovies; track movie.id + '_' + $index) {
     <swiper-slide class="movie-slide">
       <div class="movie-card" (click)="goToMovie(movie.id)">
         <img
@@ -19,34 +17,7 @@
           class="movie-poster"
           loading="lazy"
         />
-        <div class="movie-overlay">
-          <div class="movie-content">
-            <h3 class="movie-title">{{ movie.title }}</h3>
-            <p class="movie-description" *ngIf="movie.overview">
-              {{ movie.overview | slice : 0 : 150
-              }}{{ movie.overview?.length > 150 ? "..." : "" }}
-            </p>
-            @if(movie.release_date || movie.vote_average){
-            <div class="movie-meta">
-              @if(movie.release_date){
-              <span class="release-year">
-                {{ movie.release_date | date : "yyyy" }}
-              </span>
-              } @if(movie.vote_average){
-              <span class="rating">
-                ⭐ {{ movie.vote_average | number : "1.1-1" }}
-              </span>
-              }
-            </div>
-            }
-            <button
-              class="watch-btn"
-              (click)="$event.stopPropagation(); goToMovie(movie.id)"
-            >
-              Watch Now
-            </button>
-          </div>
-        </div>
+        <div class="movie-cover-title">{{ movie.title }}</div>
       </div>
     </swiper-slide>
     }

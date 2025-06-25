@@ -1,5 +1,7 @@
+@if(upComingMovies().length > 0) {
 <div class="slider-container">
   <swiper-container
+    #swiperRef
     [slides-per-view]="1"
     [space-between]="0"
     [navigation]="true"
@@ -8,14 +10,13 @@
     [loop]="true"
     class="movie-slider"
   >
-    @for (movie of upComingMovies; track movie.id + '_' + $index) {
+    @for (movie of upComingMovies(); track movie.id + '_' + $index) {
     <swiper-slide class="movie-slide">
       <div class="movie-card" (click)="goToMovie(movie.id)">
         <img
           [src]="coverURL + movie.backdrop_path"
           [alt]="movie.title"
           class="movie-poster"
-          loading="lazy"
         />
         <div class="movie-cover-title">{{ movie.title }}</div>
       </div>
@@ -23,24 +24,29 @@
     }
   </swiper-container>
 </div>
+}
 
-<app-card-slider
-  [title]="'Top Rated Movies'"
-  [content]="topRatedMovies"
-  [type]="'movie'"
-></app-card-slider>
-<app-card-slider
-  [title]="'Popular Movies'"
-  [content]="movies"
-  [type]="'movie'"
-></app-card-slider>
-<app-card-slider
-  [title]="'Top Rated TV Shows'"
-  [content]="topRatedTvShows"
-  [type]="'tv'"
-></app-card-slider>
-<app-card-slider
-  [title]="'Popular TV Shows'"
-  [content]="tvShows"
-  [type]="'tv'"
-></app-card-slider>
+<div class="container">
+  <app-card-slider
+    [title]="'Top Rated Movies'"
+    [content]="topRatedMovies()"
+    [type]="'movie'"
+  ></app-card-slider>
+  <app-card-slider
+    [title]="'Popular Movies'"
+    [content]="movies()"
+    [type]="'movie'"
+  ></app-card-slider>
+  <app-card-slider
+    [title]="'Top Rated TV Shows'"
+    [content]="topRatedTvShows()"
+    [type]="'tv'"
+  ></app-card-slider>
+  <app-card-slider
+    [title]="'Popular TV Shows'"
+    [content]="tvShows()"
+    [type]="'tv'"
+  ></app-card-slider>
+</div>
+
+<!-- ------------------------------------------------------------------------------ -->

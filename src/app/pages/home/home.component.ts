@@ -2,19 +2,24 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  inject,
   OnInit,
   OnDestroy,
+  signal,
+  WritableSignal,
+  inject,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { CardSliderComponent } from '../../components/card-slider/card-slider.component';
 import { GenericHttpClientService } from '../../services/generic-http-client.service';
 import { IMovie, IMovieResponse } from '../../interfaces/movie';
 import { EndPoints } from '../../endpoints/endpoints';
 import { ITvShow, ITvShowResponse } from '../../interfaces/ITvShow';
-import { forkJoin, Subject } from 'rxjs';
+import { forkJoin, Subject, of } from 'rxjs';
 import { takeUntil, finalize, catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { CardSliderComponent } from '../../components/card-slider/card-slider.component';
+import { Router } from '@angular/router';
 
 register();
 
@@ -26,25 +31,33 @@ register();
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('swiperRef') swiperRef!: ElementRef;
+  rotuer = inject(Router);
   private readonly destroy$ = new Subject<void>();
   private readonly service = inject(GenericHttpClientService);
 
-  // Data properties
-  movies: IMovie[] = [];
-  topRatedMovies: IMovie[] = [];
-  upComingMovies: IMovie[] = [];
-  topRatedTvShows: ITvShow[] = [];
-  tvShows: ITvShow[] = [];
+  // ✅ Reactive Signals
+  movies: WritableSignal<IMovie[]> = signal([]);
+  topRatedMovies: WritableSignal<IMovie[]> = signal([]);
+  upComingMovies: WritableSignal<IMovie[]> = signal([]);
+  topRatedTvShows: WritableSignal<ITvShow[]> = signal([]);
+  tvShows: WritableSignal<ITvShow[]> = signal([]);
 
-  // Configuration
   readonly coverURL = 'https://image.tmdb.org/t/p/original';
-
-  // Loading state
   isLoading = false;
 
   ngOnInit(): void {
     this.loadAllData();
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('resize', () => {
+      const swiperEl = this.swiperRef?.nativeElement;
+      if (swiperEl?.swiper) {
+        swiperEl.swiper.update();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -52,9 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  /**
-   * Load all data using forkJoin for better performance and reliability
-   */
   private loadAllData(): void {
     this.isLoading = true;
 
@@ -73,13 +83,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (data) => {
-          this.movies = data.popularMovies;
-          this.topRatedMovies = data.topRatedMovies;
-          this.upComingMovies = data.upcomingMovies;
-          this.tvShows = data.popularTvShows;
-          this.topRatedTvShows = data.topRatedTvShows;
-
-          console.log('All data loaded successfully');
+          this.movies.set(data.popularMovies);
+          this.topRatedMovies.set(data.topRatedMovies);
+          this.upComingMovies.set(data.upcomingMovies);
+          this.tvShows.set(data.popularTvShows);
+          this.topRatedTvShows.set(data.topRatedTvShows);
         },
         error: (error) => {
           console.error('Error loading data:', error);
@@ -87,9 +95,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  /**
-   * Fetch popular movies
-   */
   private fetchPopularMovies() {
     return this.service.getMovies(EndPoints.POPULAR_MOVIES, 1).pipe(
       map((data: IMovieResponse) => this.processMovieResults(data)),
@@ -100,9 +105,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Fetch top rated movies
-   */
   private fetchTopRatedMovies() {
     return this.service.getMovies(EndPoints.TOP_Rated_MOVIES, 1).pipe(
       map((data: IMovieResponse) => this.processMovieResults(data)),
@@ -113,9 +115,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Fetch upcoming movies
-   */
   private fetchUpcomingMovies() {
     return this.service.getMovies(EndPoints.UP_COMING_MOVIES, 1).pipe(
       map((data: IMovieResponse) => this.processMovieResults(data)),
@@ -126,9 +125,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Fetch popular TV shows
-   */
   private fetchPopularTvShows() {
     return this.service.getTVShows(EndPoints.POPULAR_TV_SHOWS, 1).pipe(
       map((data: ITvShowResponse) => this.processTvShowResults(data)),
@@ -139,9 +135,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Fetch top rated TV shows
-   */
   private fetchTopRatedTvShows() {
     return this.service.getTVShows(EndPoints.TOP_Rated_TV_SHOWS, 1).pipe(
       map((data: ITvShowResponse) => this.processTvShowResults(data)),
@@ -152,28 +145,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Filter adult content and limit results
-   */
   private processMovieResults(data: IMovieResponse): IMovie[] {
     return data.results.filter((movie) => !movie.adult).slice(0, 10);
   }
 
-  /**
-   * Filter adult content and limit results for TV shows
-   */
   private processTvShowResults(data: ITvShowResponse): ITvShow[] {
     return data.results.filter((show) => !show.adult).slice(0, 10);
   }
 
-  /**
-   * Navigate to movie details
-   */
   goToMovie(movieId: number): void {
-    if (!movieId) {
-      console.warn('Invalid movie ID');
-      return;
-    }
-    console.log(`Navigating to movie with ID: ${movieId}`);
+    this.rotuer.navigate(['/movies', movieId]);
   }
 }

@@ -4,10 +4,8 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   inject,
   input,
-  OnInit,
 } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import AOS from 'aos';
 import { IMovie } from '../../interfaces/movie';
 import { ITvShow } from '../../interfaces/ITvShow';
 import { Router } from '@angular/router';
@@ -22,7 +20,7 @@ register();
   templateUrl: './card-slider.component.html',
   styleUrl: './card-slider.component.css',
 })
-export class CardSliderComponent implements OnInit {
+export class CardSliderComponent {
   router = inject(Router);
   title = input.required<string>();
   content = input.required<IMovie[] | ITvShow[]>();
@@ -46,16 +44,6 @@ export class CardSliderComponent implements OnInit {
       spaceBetween: 20,
     },
   };
-
-  constructor() {}
-
-  ngOnInit() {
-    // Initialize AOS
-    AOS.init({
-      easing: 'ease-in-out',
-      once: false,
-    });
-  }
   getTitle(item: IMovie | ITvShow): string {
     return this.type() === 'movie'
       ? (item as IMovie).title

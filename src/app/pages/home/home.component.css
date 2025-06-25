@@ -10,10 +10,12 @@
 .movie-slider {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .movie-slide {
   height: 100%;
+  width: 100%;
 }
 
 .movie-card {
@@ -265,3 +267,4 @@
     max-width: 100%;
   }
 }
+/* ------------------------------------------------------------------------------  */

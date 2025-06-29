@@ -1,59 +1,36 @@
-# MovieWebsite
+# 🎬 Movie Website
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+A dynamic and responsive movie browsing website, showcasing popular, upcoming, and top-rated movies using the **TMDB API**. Includes smooth animations, carousels, detailed movie pages, and responsive design for all screen sizes.
 
-## Development server
+## 🌐 Live Demo
 
-To start a local development server, run:
+👉 [View Live Website](https://movie-website-zeta-sepia.vercel.app/home)
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Features
 
-## Code scaffolding
+- ✅ Browse **Popular**, **Upcoming**, and **Top Rated** movies
+- 🔍 **Search** for any movie by title
+- 📄 **Detailed movie pages** with descriptions, genres, cast, and trailers
+- 🎞️ Interactive **carousel sliders** using SwiperJS
+- ✨ Smooth scroll animations with AOS
+- 📱 Fully **responsive** for mobile, tablet, and desktop
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🛠️ Tech Stack
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+| Technology | Description |
+|------------|-------------|
+| **Angular** | Main framework for frontend |
+| **RxJS & Signals** | Reactive data handling |
+| **TypeScript** | Strongly-typed JavaScript |
+| **SwiperJS** | For horizontal carousels/sliders |
+| **AOS (Animate On Scroll)** | Scroll-based animations |
+| **Bootstrap 5** | Layout and responsive design |
+| **TMDB API** | Movie database and media content |
+| **Vercel** | Deployment and hosting platform |
 
-```bash
-ng generate --help
-```
 
-## Building
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

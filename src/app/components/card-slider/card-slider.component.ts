@@ -10,6 +10,7 @@ import { register } from 'swiper/element/bundle';
 import { IMovie } from '../../interfaces/movie';
 import { ITvShow } from '../../interfaces/ITvShow';
 import { Router } from '@angular/router';
+import { AosService } from '../../services/aos/aos.service';
 
 register();
 
@@ -21,8 +22,9 @@ register();
   templateUrl: './card-slider.component.html',
   styleUrl: './card-slider.component.css',
 })
-export class CardSliderComponent {
+export class CardSliderComponent implements AfterViewInit {
   router = inject(Router);
+  aosService = inject(AosService);
   title = input.required<string>();
   content = input.required<IMovie[] | ITvShow[]>();
   type = input.required<'movie' | 'tv'>();
@@ -50,6 +52,11 @@ export class CardSliderComponent {
       spaceBetween: 20,
     },
   };
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.aosService.refresh();
+    }, 200);
+  }
 
   getTitle(item: IMovie | ITvShow): string {
     return this.type() === 'movie'

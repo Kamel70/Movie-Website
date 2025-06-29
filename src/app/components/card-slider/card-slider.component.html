@@ -1,7 +1,13 @@
 <div class="movies-section">
   <!-- Popular Movies Section -->
   <section class="movie-category">
-    <h2 class="section-title">{{ title() }}</h2>
+    <h2
+      class="section-title"
+      [attr.data-aos]="titleAnimation()"
+      [attr.data-aos-delay]="titleDelay()"
+    >
+      {{ title() }}
+    </h2>
     <swiper-container
       [slides-per-view]="4"
       [space-between]="20"
@@ -10,7 +16,11 @@
       class="movie-cards-swiper"
     >
       @for (card of content();let i=$index; track $index) {
-      <swiper-slide>
+      <swiper-slide
+        data-aos="fade-up"
+        [attr.data-aos]="cardAnimation()"
+        [attr.data-aos-delay]="getCardDelay(i)"
+      >
         <div class="movie-card" (click)="goToDetails(card.id)">
           <div class="rating">
             <svg

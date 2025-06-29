@@ -31,21 +31,44 @@
     [title]="'Top Rated Movies'"
     [content]="topRatedMovies()"
     [type]="'movie'"
+    [titleAnimation]="'fade-right'"
+    [titleDelay]="0"
+    [cardAnimation]="'fade-up'"
+    [cardDelay]="100"
+    [cardDelayIncrement]="50"
   ></app-card-slider>
+
   <app-card-slider
     [title]="'Popular Movies'"
     [content]="movies()"
     [type]="'movie'"
+    [titleAnimation]="'fade-left'"
+    [titleDelay]="0"
+    [cardAnimation]="'zoom-in'"
+    [cardDelay]="100"
+    [cardDelayIncrement]="50"
   ></app-card-slider>
+
   <app-card-slider
     [title]="'Top Rated TV Shows'"
     [content]="topRatedTvShows()"
     [type]="'tv'"
+    [titleAnimation]="'fade-right'"
+    [titleDelay]="0"
+    [cardAnimation]="'fade-up'"
+    [cardDelay]="100"
+    [cardDelayIncrement]="50"
   ></app-card-slider>
+
   <app-card-slider
     [title]="'Popular TV Shows'"
     [content]="tvShows()"
     [type]="'tv'"
+    [titleAnimation]="'fade-left'"
+    [titleDelay]="0"
+    [cardAnimation]="'flip-left'"
+    [cardDelay]="100"
+    [cardDelayIncrement]="50"
   ></app-card-slider>
 </div>
 

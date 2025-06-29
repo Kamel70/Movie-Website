@@ -22,7 +22,6 @@ import { forkJoin, Subject, of } from 'rxjs';
 import { takeUntil, finalize, catchError, map } from 'rxjs/operators';
 import { CardSliderComponent } from '../../components/card-slider/card-slider.component';
 import { Router } from '@angular/router';
-import { AosService } from '../../services/aos.service';
 
 register();
 
@@ -34,10 +33,7 @@ register();
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent
-  implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked
-{
-  aosService = inject(AosService);
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   cdr = inject(ChangeDetectorRef);
 
   private viewChecked = false;
@@ -58,8 +54,6 @@ export class HomeComponent
   isLoading = false;
 
   ngOnInit(): void {
-    // Initialize AOS service
-    this.aosService.init();
     this.loadAllData();
   }
 
@@ -70,21 +64,6 @@ export class HomeComponent
         swiperEl.swiper.update();
       }
     });
-
-    // Initial refresh after view initialization
-    setTimeout(() => {
-      this.aosService.refresh();
-    }, 300);
-  }
-
-  ngAfterViewChecked() {
-    // Refresh AOS after view is checked (when all content is rendered)
-    if (!this.viewChecked && this.hasData() && this.dataLoaded) {
-      this.viewChecked = true;
-      setTimeout(() => {
-        this.aosService.refreshHard();
-      }, 100);
-    }
   }
 
   ngOnDestroy(): void {
@@ -135,7 +114,6 @@ export class HomeComponent
           this.isLoading = false;
           this.dataLoaded = true;
           // Refresh AOS after data is loaded
-          this.checkAndRefreshAos();
         })
       )
       .subscribe({
@@ -145,35 +123,12 @@ export class HomeComponent
           this.upComingMovies.set(data.upcomingMovies);
           this.tvShows.set(data.popularTvShows);
           this.topRatedTvShows.set(data.topRatedTvShows);
-
-          // Trigger change detection and AOS refresh
-          this.cdr.detectChanges();
-          this.checkAndRefreshAos();
         },
         error: (error) => {
           console.error('Error loading data:', error);
           this.dataLoaded = true;
         },
       });
-  }
-
-  private checkAndRefreshAos() {
-    if (this.hasData()) {
-      // Multiple refresh attempts with different timings for reliability
-      setTimeout(() => {
-        this.aosService.refresh();
-      }, 100);
-
-      setTimeout(() => {
-        this.aosService.refreshHard();
-        this.cdr.detectChanges();
-      }, 300);
-
-      // Final refresh attempt
-      setTimeout(() => {
-        this.aosService.refreshHard();
-      }, 600);
-    }
   }
 
   private fetchMovies(endPoint: string, errorMessage: string) {

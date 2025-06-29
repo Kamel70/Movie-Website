@@ -15,6 +15,5 @@ export class TvShowCardComponent {
 
   onMovieClick(id: number) {
     this.router.navigate(['/tvshows', id]);
-    console.log('Tv Show clicked:', id);
   }
 }

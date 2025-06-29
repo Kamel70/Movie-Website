@@ -15,6 +15,5 @@ export class MovieCardComponent {
 
   onMovieClick(id: number) {
     this.router.navigate(['/movies', id]);
-    console.log('Movie clicked:', id);
   }
 }

@@ -106,11 +106,26 @@ export class HomeComponent
     this.dataLoaded = false;
 
     const requests = {
-      popularMovies: this.fetchPopularMovies(),
-      topRatedMovies: this.fetchTopRatedMovies(),
-      upcomingMovies: this.fetchUpcomingMovies(),
-      popularTvShows: this.fetchPopularTvShows(),
-      topRatedTvShows: this.fetchTopRatedTvShows(),
+      popularMovies: this.fetchMovies(
+        EndPoints.POPULAR_MOVIES,
+        'Error fetching popular movies'
+      ),
+      topRatedMovies: this.fetchMovies(
+        EndPoints.TOP_Rated_MOVIES,
+        'Error fetching top rated movies'
+      ),
+      upcomingMovies: this.fetchMovies(
+        EndPoints.UP_COMING_MOVIES,
+        'Error fetching upcoming movies'
+      ),
+      popularTvShows: this.fetchTvShows(
+        EndPoints.POPULAR_TV_SHOWS,
+        'Error fetching popular TV shows'
+      ),
+      topRatedTvShows: this.fetchTvShows(
+        EndPoints.TOP_Rated_TV_SHOWS,
+        'Error fetching top rated TV shows'
+      ),
     };
 
     forkJoin(requests)
@@ -161,51 +176,21 @@ export class HomeComponent
     }
   }
 
-  private fetchPopularMovies() {
-    return this.service.getMovies(EndPoints.POPULAR_MOVIES, 1).pipe(
+  private fetchMovies(endPoint: string, errorMessage: string) {
+    return this.service.getMovies(endPoint, 1).pipe(
       map((data: IMovieResponse) => this.processMovieResults(data)),
       catchError((error) => {
-        console.error('Error fetching popular movies:', error);
+        console.error(`${errorMessage}`, error);
         return of([]);
       })
     );
   }
 
-  private fetchTopRatedMovies() {
-    return this.service.getMovies(EndPoints.TOP_Rated_MOVIES, 1).pipe(
-      map((data: IMovieResponse) => this.processMovieResults(data)),
-      catchError((error) => {
-        console.error('Error fetching top rated movies:', error);
-        return of([]);
-      })
-    );
-  }
-
-  private fetchUpcomingMovies() {
-    return this.service.getMovies(EndPoints.UP_COMING_MOVIES, 1).pipe(
-      map((data: IMovieResponse) => this.processMovieResults(data)),
-      catchError((error) => {
-        console.error('Error fetching upcoming movies:', error);
-        return of([]);
-      })
-    );
-  }
-
-  private fetchPopularTvShows() {
-    return this.service.getTVShows(EndPoints.POPULAR_TV_SHOWS, 1).pipe(
+  private fetchTvShows(endPoint: string, errorMessage: string) {
+    return this.service.getTVShows(endPoint, 1).pipe(
       map((data: ITvShowResponse) => this.processTvShowResults(data)),
       catchError((error) => {
-        console.error('Error fetching popular TV shows:', error);
-        return of([]);
-      })
-    );
-  }
-
-  private fetchTopRatedTvShows() {
-    return this.service.getTVShows(EndPoints.TOP_Rated_TV_SHOWS, 1).pipe(
-      map((data: ITvShowResponse) => this.processTvShowResults(data)),
-      catchError((error) => {
-        console.error('Error fetching top rated TV shows:', error);
+        console.error(`${errorMessage}`, error);
         return of([]);
       })
     );
